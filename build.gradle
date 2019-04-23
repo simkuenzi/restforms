@@ -1,5 +1,7 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.3.10'
+    id 'maven'
+    id 'signing'
 }
 
 group 'com.github.simkuenzi'
@@ -7,6 +9,7 @@ version '0.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -17,6 +20,66 @@ dependencies {
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
+
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+task sourceJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourceJar
+    archives javadocJar
+}
+
+signing {
+    sign configurations.archives
+    useGpgCmd()
+}
+
+uploadArchives {
+    dependsOn = [jar, sourceJar, javadocJar]
+    repositories {
+        mavenDeployer {
+            repository(url: "file:///home/simon/testrepo") {
+                authentication(userName: "admin", password: "admin123")
+            }
+            pom.project {
+                packaging 'jar'
+                name "$project.group:$project.name"
+                description 'A libray which helps to structure parsing and validation of URL encoded HTTP forms.'
+                url 'https://github.com/simkuenzi/restforms'
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        name 'Simon Künzi'
+                        email 'sim.kuenzi@gmail.com'
+                        organizationUrl 'https://github.com/simkuenzi'
+                    }
+                }
+                scm {
+                    connection 'scm:git:https://github.com/simkuenzi/restforms/restforms.git'
+                    developerConnection 'scm:git:https://github.com/simkuenzi/restforms/restforms.git'
+                    url 'https://github.com/simkuenzi/restforms'
+                }
+
+            }
+//            repository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
+//                authentication(userName: mavenUser, password: mavenPassword)
+//            }
+        }
+    }
 }
