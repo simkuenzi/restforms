@@ -53,7 +53,7 @@ uploadArchives {
             snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
                 authentication(userName: mavenUser, password: mavenPassword)
             }
-            repository(url: " https://oss.sonatype.org/service/local/staging/deploy/maven2") {
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
                 authentication(userName: mavenUser, password: mavenPassword)
             }
             pom.project {
