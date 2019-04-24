@@ -50,11 +50,11 @@ uploadArchives {
     dependsOn = [jar, sourceJar, javadocJar]
     repositories {
         mavenDeployer {
-            snapshotRepository(url: "file:///home/simon/testrepo-snap") {
-                authentication(userName: "admin", password: "admin123")
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
+                authentication(userName: mavenUser, password: mavenPassword)
             }
-            repository(url: "file:///home/simon/testrepo") {
-                authentication(userName: "admin", password: "admin123")
+            repository(url: " https://oss.sonatype.org/service/local/staging/deploy/maven2") {
+                authentication(userName: mavenUser, password: mavenPassword)
             }
             pom.project {
                 packaging 'jar'
@@ -79,11 +79,7 @@ uploadArchives {
                     developerConnection 'scm:git:https://github.com/simkuenzi/restforms/restforms.git'
                     url 'https://github.com/simkuenzi/restforms'
                 }
-
             }
-//            repository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
-//                authentication(userName: mavenUser, password: mavenPassword)
-//            }
         }
     }
 }
