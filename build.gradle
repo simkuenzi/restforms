@@ -50,6 +50,9 @@ uploadArchives {
     dependsOn = [jar, sourceJar, javadocJar]
     repositories {
         mavenDeployer {
+            snapshotRepository(url: "file:///home/simon/testrepo-snap") {
+                authentication(userName: "admin", password: "admin123")
+            }
             repository(url: "file:///home/simon/testrepo") {
                 authentication(userName: "admin", password: "admin123")
             }
