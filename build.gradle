@@ -50,6 +50,7 @@ uploadArchives {
     dependsOn = [jar, sourceJar, javadocJar]
     repositories {
         mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
             snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
                 authentication(userName: mavenUser, password: mavenPassword)
             }
