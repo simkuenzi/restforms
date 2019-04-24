@@ -15,7 +15,7 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
+    compileOnly group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
 }
 
 compileKotlin {
