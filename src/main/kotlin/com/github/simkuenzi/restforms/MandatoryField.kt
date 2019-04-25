@@ -1,6 +1,6 @@
 package com.github.simkuenzi.restforms
 
-class MandatoryField(private val inner: FormField<String>) : FormField<String> {
+class MandatoryField(private val inner: FormField<String>, private val message: String) : FormField<String> {
 
     override fun rawValue(): String {
         return inner.rawValue()
@@ -15,7 +15,7 @@ class MandatoryField(private val inner: FormField<String>) : FormField<String> {
     }
 
     override fun message(): String {
-        return if (!valid()) "Provide some text here" else ""
+        return if (!valid()) message else ""
     }
 
     override fun toString(): String {

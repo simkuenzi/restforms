@@ -3,7 +3,7 @@ package com.github.simkuenzi.restforms
 import java.math.BigDecimal
 import java.util.regex.Pattern
 
-class DecimalField(private val value: FormValue) : FormField<BigDecimal> {
+class DecimalField(private val value: FormValue, private val message: String) : FormField<BigDecimal> {
 
     override fun rawValue(): String {
         return value.rawValue()
@@ -18,7 +18,7 @@ class DecimalField(private val value: FormValue) : FormField<BigDecimal> {
     }
 
     override fun message(): String {
-        return if (!valid()) "Invalid number" else ""
+        return if (!valid()) message else ""
     }
 
     override fun toString(): String {
