@@ -3,6 +3,7 @@ plugins {
     id 'maven'
     id 'signing'
     id 'net.researchgate.release' version '2.6.0'
+    id 'io.codearte.nexus-staging' version '0.20.0'
 }
 
 group 'com.github.simkuenzi'
@@ -85,4 +86,5 @@ uploadArchives {
     }
 }
 
-afterReleaseBuild.dependsOn uploadArchives
+afterReleaseBuild.dependsOn uploadArchives, closeAndReleaseRepository
+closeAndReleaseRepository.mustRunAfter uploadArchives
